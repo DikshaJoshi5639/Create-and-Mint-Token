@@ -18,12 +18,13 @@ contract MyToken {
         balance[toThePer] += val;
     }
 
-    function transfer(address _to, uint256 _value) public {
-        require(_to != address(0), "Invalid recipient address");
-        require(balance[msg.sender] >= _value, "Insufficient balance");
+    function transfer(address fromSender, address toRece, uint256 _value) external {
+        require(fromSender != address(0), "Invalid sender address");
+        require(toRece != address(0), "Invalid receiver address");
+        require(balance[fromSender] >= _value, "Insufficient balance");
 
-        balance[msg.sender] -= _value;
-        balance[_to] += _value;
+        balance[fromSender] -= _value;
+        balance[toRece] += _value;
     }
 
     function burn(uint val) public {
