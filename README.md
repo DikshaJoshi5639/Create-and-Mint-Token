@@ -11,6 +11,7 @@ This program is a Smart contract written in Solidity, a programming language use
 ## Getting Started
 ### Executing program
 To run this program, you can use Remix, an online Solidity IDE. To get started, go to the Remix website at https://remix.ethereum.org/.
+
 1.Now after opening the link you will click on the "File Explorer" option on the extreme left of the screen,then click on "create new file".
 2.Save the file with .sol extension (For Eg. myTokens.sol).
 3.Copy paste the following code on your remix platform.
