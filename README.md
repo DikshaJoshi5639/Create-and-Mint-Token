@@ -6,7 +6,8 @@ This program is a Smart contract written in Solidity, a programming language use
 1. mint(address toThePer, uint val): This function is used to add tokens to the owner address. This is only accessed by the owner and anyother user with different address cannot upgrade it.
 2. transfer(address fromSender, address toRece, uint256 val): This Function is used to transfer tokens from one account to another account, this can be accessed by any other user apart from the owner.
 3. burn(uint val): This function is used to burn tokens from of the owner account and it can be accessed by any other user as well.
-4. onlyOwner(): This is the modifier which ensures that only the owner of the contract can call functions that use this modifier.
+4. transferTokens(address toRece, uint val) : This functions helps user to transfer their own tokens through it.
+5. onlyOwner(): This is the modifier which ensures that only the owner of the contract can call functions that use this modifier.
 
 ## Getting Started
 ### Executing program
@@ -37,7 +38,7 @@ contract MyToken {
         balance[toThePer] += val;
     }
 
-    function transfer(address fromSender, address toRece, uint256 val) external {
+    function transfer(address fromSender, address toRece, uint val) external { 
         require(fromSender != address(0), "Invalid sender address");
         require(toRece != address(0), "Invalid receiver address");
         require(balance[fromSender] >= val, "Insufficient balance");
@@ -46,12 +47,23 @@ contract MyToken {
         balance[toRece] += val;
     }
 
+
     function burn(uint val) public {
         require(balance[msg.sender] >= val, "Insufficient balance");
         totalSupply -= val;
         balance[msg.sender] -= val;
     }
+
+    function transferTokens(address toRece, uint val) external {
+        require(msg.sender != address(0), "Invalid sender address");
+        require(toRece != address(0), "Invalid receiver address");
+        require(balance[msg.sender] >= val, "Insufficient balance");
+
+        balance[msg.sender] -= val;
+        balance[toRece] += val;
+    }
 }
+
 ```
 4. To compile the code, click on the "Solidity Compiler" tab in the left-hand sidebar. Make sure the "Compiler" option is set to "0.8.18" (or another compatible version), and then click on the "Compile TokenCreationAndMint.sol" button.
 5. Once the code is compiled, you can deploy the contract by clicking on the "Deploy & Run Transactions" tab in the left-hand sidebar.Then click on the "Deploy" button.
